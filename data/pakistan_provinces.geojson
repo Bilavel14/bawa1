@@ -1,0 +1,61 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {"name": "Punjab"},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[69.0, 33.5], [75.5, 33.5], [75.5, 28.0], [69.0, 28.0], [69.0, 33.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {"name": "Sindh"},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[66.5, 28.5], [71.5, 28.5], [71.5, 23.5], [66.5, 23.5], [66.5, 28.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {"name": "Khyber Pakhtunkhwa"},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[69.0, 36.5], [73.5, 36.5], [73.5, 33.0], [69.0, 33.0], [69.0, 36.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {"name": "Balochistan"},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[60.5, 32.5], [69.5, 32.5], [69.5, 24.0], [60.5, 24.0], [60.5, 32.5]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {"name": "Gilgit-Baltistan"},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[73.0, 37.0], [77.0, 37.0], [77.0, 35.0], [73.0, 35.0], [73.0, 37.0]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {"name": "Azad Jammu and Kashmir"},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[73.0, 34.8], [75.5, 34.8], [75.5, 33.2], [73.0, 33.2], [73.0, 34.8]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {"name": "Islamabad Capital Territory"},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[72.9, 33.9], [73.4, 33.9], [73.4, 33.6], [72.9, 33.6], [72.9, 33.9]]]
+      }
+    }
+  ]
+}

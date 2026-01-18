@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ED-COP-2026 | Environmental Dynamics Portal</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Environmental Dynamics – Common Operating Picture 2026</h1>
+      <p>Pakistan national environmental risk overview</p>
+    </header>
+
+    <section class="query-panel">
+      <input id="questionInput" type="text" placeholder="Ask about floods, heat, drought, glacier melt, or any environmental concern." />
+      <button id="submitBtn">Analyze</button>
+      <div class="status" id="statusText">Ready.</div>
+    </section>
+
+    <section class="content">
+      <div id="map"></div>
+      <aside class="details" id="detailsPanel">
+        <h2>Province Summary</h2>
+        <p>Select a province to view details.</p>
+      </aside>
+    </section>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
