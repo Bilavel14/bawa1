@@ -3,33 +3,177 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ED-COP-2026 | Environmental Dynamics Portal</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <title>Performance Evaluation Dashboard</title>
   <link rel="stylesheet" href="/static/css/style.css" />
 </head>
 <body>
-  <div class="page">
-    <header>
-      <h1>Environmental Dynamics – Common Operating Picture 2026</h1>
-      <p>Pakistan national environmental risk overview</p>
+  <div class="app">
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Local Performance Hub</p>
+        <h1>Monthly Performance Evaluation Dashboard</h1>
+        <p class="subtitle">Weekly task inputs, automated scoring, trend alerts, and month-wise performance sheets.</p>
+      </div>
+      <div class="header-actions">
+        <button class="ghost" id="exportCsvBtn">Export CSV</button>
+        <button class="primary" id="openSheetBtn">Monthly Performance Sheet</button>
+      </div>
     </header>
 
-    <section class="query-panel">
-      <input id="questionInput" type="text" placeholder="Ask about floods, heat, drought, glacier melt, or any environmental concern." />
-      <button id="submitBtn">Analyze</button>
-      <div class="status" id="statusText">Ready.</div>
+    <section class="controls">
+      <div class="control">
+        <label for="employeeSelect">Employee</label>
+        <select id="employeeSelect"></select>
+      </div>
+      <div class="control">
+        <label for="monthSelect">Month (YYYY-MM)</label>
+        <select id="monthSelect"></select>
+      </div>
+      <div class="control">
+        <label for="modeSelect">Role Mode</label>
+        <select id="modeSelect">
+          <option value="edit">Evaluator (edit)</option>
+          <option value="view">View-only (senior)</option>
+        </select>
+      </div>
+      <div class="control status-chip">
+        <span id="saveState">Auto-save ready</span>
+      </div>
     </section>
 
-    <section class="content">
-      <div id="map"></div>
-      <aside class="details" id="detailsPanel">
-        <h2>Province Summary</h2>
-        <p>Select a province to view details.</p>
-      </aside>
+    <section class="dashboard">
+      <div class="left-panel">
+        <div class="tabs" id="weekTabs">
+          <button class="tab active" data-week="1">Week 1</button>
+          <button class="tab" data-week="2">Week 2</button>
+          <button class="tab" data-week="3">Week 3</button>
+          <button class="tab" data-week="4">Week 4</button>
+        </div>
+
+        <div class="panel" id="weekPanel">
+          <div class="panel-header">
+            <h2 id="weekTitle">Week 1 Inputs</h2>
+            <span class="hint">Scores are calculated automatically.</span>
+          </div>
+
+          <div class="grid" id="weekForm">
+            <div class="field">
+              <label for="tasksAssigned">Tasks assigned</label>
+              <input type="number" id="tasksAssigned" min="0" />
+            </div>
+            <div class="field">
+              <label for="tasksCompleted">Tasks completed</label>
+              <input type="number" id="tasksCompleted" min="0" />
+            </div>
+            <div class="field">
+              <label for="completionStatus">Task completion status</label>
+              <select id="completionStatus">
+                <option value="">Select</option>
+                <option>Completed on time</option>
+                <option>Completed late</option>
+                <option>Incomplete</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="qualityOutput">Quality of output</label>
+              <select id="qualityOutput">
+                <option value="">Select</option>
+                <option>Excellent</option>
+                <option>Good</option>
+                <option>Acceptable</option>
+                <option>Weak</option>
+                <option>Not usable</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="conceptualProgress">Conceptual / analytical progress</label>
+              <select id="conceptualProgress">
+                <option value="">Select</option>
+                <option>High</option>
+                <option>Medium</option>
+                <option>Low</option>
+              </select>
+            </div>
+            <div class="field field--full">
+              <label for="remarks">Optional remarks</label>
+              <textarea id="remarks" rows="3" placeholder="Short weekly observations (optional)"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" id="insightsPanel">
+          <div class="panel-header">
+            <h2>Smart Flags & Insights</h2>
+            <span class="hint">Rule-based intelligence from weekly trends.</span>
+          </div>
+          <div class="insights" id="insightList"></div>
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <div class="tiles">
+          <div class="tile">
+            <p class="tile-label">Monthly Score</p>
+            <h3 id="monthlyScore">0.0</h3>
+          </div>
+          <div class="tile">
+            <p class="tile-label">Status</p>
+            <h3 id="monthlyStatus">--</h3>
+          </div>
+          <div class="tile">
+            <p class="tile-label">Trend</p>
+            <h3 id="trendIndicator">→</h3>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Weekly Score Trend</h2>
+          </div>
+          <div class="chart" id="scoreChart"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Tasks Assigned vs Completed</h2>
+          </div>
+          <div class="chart" id="taskChart"></div>
+        </div>
+
+        <div class="panel metrics">
+          <div>
+            <p class="metric-label">On-time completion</p>
+            <p class="metric-value" id="onTimeRate">0%</p>
+          </div>
+          <div>
+            <p class="metric-label">Avg quality score</p>
+            <p class="metric-value" id="avgQuality">0.0</p>
+          </div>
+          <div>
+            <p class="metric-label">Conceptual trend</p>
+            <p class="metric-value" id="conceptTrend">--</p>
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <div class="sheet-modal" id="sheetModal" aria-hidden="true">
+    <div class="sheet-content">
+      <div class="sheet-header">
+        <div>
+          <h2>Monthly Performance Sheet</h2>
+          <p id="sheetSubtitle">Auto-generated summary for senior review.</p>
+        </div>
+        <div class="sheet-actions">
+          <button class="ghost" id="printSheetBtn">Print / PDF</button>
+          <button class="primary" id="closeSheetBtn">Close</button>
+        </div>
+      </div>
+      <div class="sheet-table" id="sheetTable"></div>
+    </div>
+  </div>
+
   <script src="/static/js/app.js"></script>
 </body>
 </html>
